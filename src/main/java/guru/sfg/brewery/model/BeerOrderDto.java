@@ -36,7 +36,8 @@ import java.util.UUID;
 @Builder
 public class BeerOrderDto {
 
-    @Null
+    @JsonProperty("id")
+    //@Null
     private UUID id = null;
 
     @Null
