@@ -28,13 +28,14 @@ public abstract class BeerOrderLineMapperDecorator implements BeerOrderLineMappe
     @Override
     public BeerOrderLineDto beerOrderLineToDto(BeerOrderLine line) {
         BeerOrderLineDto orderLineDto = beerOrderLineMapper.beerOrderLineToDto(line);
-        Optional<BeerDto> beerDtoOptional = beerService.getBeerById(line.getBeerId());
+        Optional<BeerDto> beerDtoOptional = beerService.getBeerByUpc(line.getUpc());
 
         beerDtoOptional.ifPresent(beerDto -> {
             orderLineDto.setBeerName(beerDto.getBeerName());
-            orderLineDto.setBeerStyle(beerDto.getBeerName());
+            orderLineDto.setBeerStyle(beerDto.getBeerStyle());
             orderLineDto.setUpc(beerDto.getUpc());
             orderLineDto.setPrice(beerDto.getPrice());
+            orderLineDto.setBeerId(beerDto.getId());
         });
 
         return orderLineDto;
